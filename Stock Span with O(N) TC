@@ -1,0 +1,30 @@
+import java.util.*;
+public class StackSpan2 {
+    public static void stockSpan(int stacks[], int span[]){
+        Stack<Integer> st = new Stack<>();
+        span[0] = 1;
+        st.push(0);
+        for(int i=1;i<stacks.length;i++){
+            int curprice = stacks[i];
+            while(!st.isEmpty() && curprice >= stacks[st.peek()]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                span[i] = i + 1;
+            }
+            else{
+                span[i] = i - st.peek();
+                st.push(i);
+            }
+        }
+
+        }
+    public static void main(String[] args) {
+        int stacks[] = {100,80,60,70,60,85,100};
+        int span[] = new int[stacks.length];
+        stockSpan(stacks, span);
+        for(int i=0;i<span.length;i++){
+            System.out.print(span[i]+" ");
+        }
+    }
+}
